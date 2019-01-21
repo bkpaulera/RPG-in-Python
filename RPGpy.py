@@ -116,7 +116,7 @@ def play():
     
 if __name__ == "__main__":   
     
-    print('Dangeon Works')
+    print('Dungeon World')
     print('\n')
     #criaPlayer()
     #print('\n')

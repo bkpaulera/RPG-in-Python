@@ -1,14 +1,11 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[8]:
-
-
 # !/usr/bin/env python
 # coding: utf-8
 
 import random
 
+def saveGame(player):
+    
+    return player
 
 def criaPlayer():
     player = ['name', 'lp', 'strength', 'potion']
@@ -165,7 +162,9 @@ def play():
     op = 2
 
     num = 0
-
+    
+    saveGame(criaPlayer())
+    
     while control == False:
         
         num = num + 1
@@ -189,10 +188,3 @@ if __name__ == "__main__":
     # print('\n')
     play()
     # batlle()
-
-
-# In[ ]:
-
-
-
-

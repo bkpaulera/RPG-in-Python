@@ -1,4 +1,10 @@
-﻿# !/usr/bin/env python
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[8]:
+
+
+# !/usr/bin/env python
 # coding: utf-8
 
 import random
@@ -77,12 +83,19 @@ def dropPotion(equip,maxi,dropChance):
     else:
         return 0
     
-def usePotion()
+def usePotion(playerSelf):
     
-    return random.randrange(30,100)
-    
-
-
+    print('\n******Poção usada*********')
+    cure = random.randrange(30,100)
+    playerSelf[1][0] = playerSelf[1][0]+cure
+    print('\nBonus :',cure)
+    if playerSelf[1][0]>playerSelf[1][1]:
+        print('Player Life: ',playerSelf[1][1])
+        return playerSelf[1][1]
+    else:
+        print('Player Life: ',playerSelf[1][0])
+        return playerSelf[1][0]
+    print('****************************')
 
 
 def batlle():
@@ -96,7 +109,7 @@ def batlle():
     enemySelf = enemy()
 
     print('\nLets the battle Beguin : \n*************************************************\n')
-    print('\nPlayer \n\nName : ', playerSelf[0], '\nLife Points :', playerSelf[1], '\nStrength :', playerSelf[2],
+    print('\nPlayer \n\nName : ', playerSelf[0], '\nLife Points :', playerSelf[1][0], '\nStrength :', playerSelf[2],
           '\nLife potion :', playerSelf[3])
     print('\nEnemy \n\nName: ', enemySelf[0], '\nLife : ', enemySelf[1], '\nStrength: ', enemySelf[2],
           '\nDrop Chance: ', enemySelf[3])
@@ -106,10 +119,10 @@ def batlle():
 
         rodada = rodada + 1
 
-        print('\nRodada :', rodada, ':\nVida ', playerSelf[0], ' :', playerSelf[1], '\nVida ', enemySelf[0], ' :',
+        print('\nRodada :', rodada, ':\nVida ', playerSelf[0], ' :', playerSelf[1][0], '\nVida ', enemySelf[0], ' :',
               enemySelf[1])
 
-        if playerSelf[1] <= 0:
+        if playerSelf[1][0] <= 0:
             print('\nYou Die')
             break
         elif enemySelf[1] <= 0:
@@ -124,21 +137,22 @@ def batlle():
         if turno == 0:
             print('Turno Player')
             turno = turno + 1
-            if playerSelf[1]<50:
+            if playerSelf[1][0]<50&playerSelf[3][0]>0:
                 playerSelf[3][0]= playerSelf[3][0]-1
-                playerSelf[1] = usePotion()
+                playerSelf[1][0] = usePotion(playerSelf)
+                
             enemySelf[1] = enemySelf[1] - int(atack(playerSelf[2]))
             print('Voce atacou o ', enemySelf[0], ' ! \nVida :', enemySelf[1])
             
         elif turno == 1:
             print('Turno Enemy')
             turno = turno - 1
-            playerSelf[1] = playerSelf[1] - int(atack(enemySelf[2]))
+            playerSelf[1][0] = playerSelf[1][0] - int(atack(enemySelf[2]))
             print('Voce foi atacado pelo o ', enemySelf[0], ' ! \nVida :', playerSelf[1])
 
     print('\nfim do laço')
     print('*************************************************')
-    print('\nPlayer \n\nName : ', playerSelf[0], '\nLife Points :', playerSelf[1], '\nStrength :', playerSelf[2],
+    print('\nPlayer \n\nName : ', playerSelf[0], '\nLife Points :', playerSelf[1][0], '\nStrength :', playerSelf[2],
           '\nLife potion :', playerSelf[3])
     print('\nEnemy \n\nName: ', enemySelf[0], '\nLife : ', enemySelf[1], '\nStrength: ', enemySelf[2],
           '\nDrop Chance: ', enemySelf[3])
@@ -175,3 +189,10 @@ if __name__ == "__main__":
     # print('\n')
     play()
     # batlle()
+
+
+# In[ ]:
+
+
+
+

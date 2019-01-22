@@ -1,4 +1,4 @@
-# !/usr/bin/env python
+﻿# !/usr/bin/env python
 # coding: utf-8
 
 import random
@@ -11,13 +11,13 @@ def criaPlayer():
 
     # name = input('Digite o Nome : ')
     player[0] = 'gustavo'
-
-    player[1] = 100
+    # [0] = vida atual // [1] = Max Vida 
+    player[1] = [100,100]
 
     player[2] = random.randrange(20, 90)
 
     # Posição 0(Quantas possui) , posição 1 (minimo), posição 2 (maximo)
-    player[3] = [0, 0, 5]
+    player[3] = [1, 0, 5]
 
     # print('\nName : ',player[0],'\nLife Points : ',player[1],'\nStrength :', player[2], '\nLife potion :', player[3])
 
@@ -31,7 +31,7 @@ def enemy():
     enemy[0] = random.choice(name)
     enemy[1] = random.randrange(50, 100)
     enemy[2] = random.randrange(10, 90)
-    enemy[3] = random.randrange(0, 10)
+    enemy[3] = random.randrange(8, 10)
 
     # print('\nname: ',enemy[0],'\nlife : ',enemy[1],'\ndrop chance: ',enemy[2])
 
@@ -40,15 +40,15 @@ def enemy():
 
 def continuePlay(option):
     while True:
-        option = int(input('\n Deseja Continuar ? : \nDigite 1 para Não(True) ou 2 para Sim(False) \n'))
+        option = int(input('\n Deseja Continuar ? : \nDigite 1 para SIM(True) ou 2 para NAO(False) \n'))
 
         if option == 1:
             print('op 1')
-            return True
+            return False
             break
         elif option == 2:
             print('op 2')
-            return False
+            return True
             break
         else:
             print('porra meu irmão')
@@ -63,16 +63,24 @@ def atack(stregntSelf):
     return damage
 
 
-def dropPotion(equip,max,dropChance):
-
-
-    if max<equip:
-        if random.randrange(0,10) <= dropChance:
+def dropPotion(equip,maxi,dropChance):
+    
+    print('\nTeste de drop\n Max=',maxi,'\n quantidade atual = ',equip,'\n Chance de drop = ' ,dropChance)
+    
+    if maxi>equip:
+        if random.randrange(9,10) <= dropChance:
+            print('O inimigo Dropou uma poção')
             return 1
         else:
+            print('flopw')
             return 0
     else:
         return 0
+    
+def usePotion()
+    
+    return random.randrange(30,100)
+    
 
 
 
@@ -105,7 +113,8 @@ def batlle():
             print('\nYou Die')
             break
         elif enemySelf[1] <= 0:
-            print('\nYou has Defeat the ', enemySelf[0])
+            print('\nYou has Defeated the ', enemySelf[0])
+            playerSelf[3][0]=dropPotion(playerSelf[3][0],playerSelf[3][2],enemySelf[3])
             break
 
         else:
@@ -115,10 +124,12 @@ def batlle():
         if turno == 0:
             print('Turno Player')
             turno = turno + 1
+            if playerSelf[1]<50:
+                playerSelf[3][0]= playerSelf[3][0]-1
+                playerSelf[1] = usePotion()
             enemySelf[1] = enemySelf[1] - int(atack(playerSelf[2]))
-            print('Voce atacou o ', enemySelf[0], ' ! \n Vida :', enemySelf[1])
-
-
+            print('Voce atacou o ', enemySelf[0], ' ! \nVida :', enemySelf[1])
+            
         elif turno == 1:
             print('Turno Enemy')
             turno = turno - 1
@@ -142,10 +153,13 @@ def play():
     num = 0
 
     while control == False:
+        
         num = num + 1
+        
         print('interação : ', num, 'op', op)
-
+        
         batlle()
+        
         control = continuePlay(op)
 
     print('\nfim do laço')

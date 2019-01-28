@@ -1,5 +1,8 @@
-# !/usr/bin/env python
+#!/usr/bin/env python
 # coding: utf-8
+
+# In[13]:
+
 
 import random
 
@@ -95,15 +98,15 @@ def usePotion(playerSelf):
     print('****************************')
 
 
-def batlle():
+def batlle(playerSelf,enemySelf):
     turno = 0
     control = False
     rodada = 0
-    playerSelf = ['null']
-    enemySelf = ['null']
+    #playerSelf = ['null']
+    #enemySelf = ['null']
 
-    playerSelf = criaPlayer()
-    enemySelf = enemy()
+    #playerSelf = criaPlayer()
+    #enemySelf = enemy()
 
     print('\nLets the battle Beguin : \n*************************************************\n')
     print('\nPlayer \n\nName : ', playerSelf[0], '\nLife Points :', playerSelf[1][0], '\nStrength :', playerSelf[2],
@@ -121,6 +124,7 @@ def batlle():
 
         if playerSelf[1][0] <= 0:
             print('\nYou Die')
+            return 0
             break
         elif enemySelf[1] <= 0:
             print('\nYou has Defeated the ', enemySelf[0])
@@ -163,16 +167,20 @@ def play():
 
     num = 0
     
-    saveGame(criaPlayer())
+    player =saveGame(criaPlayer())
     
     while control == False:
         
+        enemySelf = enemy()
         num = num + 1
         
         print('interação : ', num, 'op', op)
         
-        batlle()
+        resulta=batlle(player,enemySelf)
         
+        if resulta ==0:
+            player = criaPlayer()
+            
         control = continuePlay(op)
 
     print('\nfim do laço')
@@ -187,4 +195,11 @@ if __name__ == "__main__":
     # enemy()
     # print('\n')
     play()
-    # batlle()
+# batlle()
+
+
+# In[ ]:
+
+
+
+
